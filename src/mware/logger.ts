@@ -9,7 +9,11 @@ import * as logger from "../utils/logging";
  * @param next - Middleware pipeline incrementor.
  */
 export default async (req: Request, res: Response, next: any) => {
-	logger.logAPI("Hello Dolly")
+	if (req.params) {
+		logger.logAPI(`HTTP request: ${req.path} :: ${Object.keys(req.params)}`);
+	} else {
+		logger.logAPI(`HTTP request: ${req.path}`);
+	}
 
 	next();
 }

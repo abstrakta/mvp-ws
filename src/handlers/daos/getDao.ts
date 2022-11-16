@@ -13,6 +13,9 @@ export default async (req: Request, res: Response) => {
     const entity = await prisma.dao.findFirst({
         where: {
             id: parseInt(req.params.idOfDao)
+        },
+        include: {
+            members: true
         }
     })
 
