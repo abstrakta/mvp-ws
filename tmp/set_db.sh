@@ -23,7 +23,7 @@ sudo -i -u postgres psql -U postgres -c "ALTER USER abstrakta_dbuser_admin PASSW
 
 # Create db & seed.
 npx prisma migrate dev --name init
-npx prisma db seed
+# npx prisma db seed
 
-# Run web-service.
-npm run dev
+# # Run web-service.
+# npm run dev

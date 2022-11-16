@@ -6,8 +6,8 @@ import { PrismaClient } from '@prisma/client';
  * Seeds TEST database with a set of test users.
  * @param prisma - A prisma client bound to a dB
  */
-export default async (prisma: PrismaClient, countToCreate: number = 100) => {
-    for (let i = 0; i < countToCreate; i++) {
+export default async (prisma: PrismaClient) => {
+    for (let i = 0; i < 100; i++) {
         await createUser(prisma);
     }
 };

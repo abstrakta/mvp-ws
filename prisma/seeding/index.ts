@@ -1,20 +1,20 @@
 import { PrismaClient } from '@prisma/client';
 import seedAssetPortfolio from "./seedAssetPortfolio";
 import seedDao from "./seedDao";
-import seedUser from "./seedUser";
+import seedCommunity from "./seedCommunity";
 
 
 async function main(prisma: PrismaClient) {
   console.log("Seeding abstrakta TEST dB");
 
-  console.log("... seeding 100 users");
-  await seedUser(prisma, 100);
+  console.log("... seeding community");
+  await seedCommunity(prisma);
 
-  console.log("... seeding 100 daos");
-  await seedDao(prisma, 100);
+  console.log("... seeding daos");
+  await seedDao(prisma);
 
-  console.log("... seeding 100 asset portfolios");
-  await seedAssetPortfolio(prisma, 100);
+  console.log("... seeding asset portfolios");
+  await seedAssetPortfolio(prisma);
 
 }
 

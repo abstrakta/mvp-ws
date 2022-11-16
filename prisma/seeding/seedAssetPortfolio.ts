@@ -7,29 +7,34 @@ import * as random from "../../src/utils/random";
  * Seeds TEST database with a set of test research assets.
  * @param prisma - A prisma client bound to a dB
  */
-export default async (prisma: PrismaClient, countToCreate: number = 100) => {
-    for (let i = 0; i < countToCreate; i++) {
-        const user = await prisma.user.findUnique({
-            where: {
-                id: i + 1
-            }
-        });
+export default async (prisma: PrismaClient) => {
+    for (let i = 1; i < 101; i++) {
+		// Set portfolio owner ID.
+		const idOfOwner = i;
+		console.log(`ID of portfolio owner: ${idOfOwner}`);
 
-        const portfolio = await createAssetPortfolio(prisma, user!.id);
+        // Set portfolio.
+        const { id: idOfPortfolio } = await createAssetPortfolio(prisma, idOfOwner);
+		console.log(`ID of portfolio: ${idOfPortfolio}`);
+
+        // Set portfolio assets.
         for (let i = 0; i < 10; i++) {
-            const bundle = await createAssetBundle(prisma, portfolio.id);
+            // ... set bundle.
+            const { id: idOfBundle } = await createAssetBundle(prisma, idOfPortfolio);
+            console.log(`ID of bundle: ${idOfBundle}`);
+            
+            // ... set assets.
             for (let i = 0; i < 5; i++) {
-                await createAsset(prisma, bundle.id);
+                await createAsset(prisma, idOfBundle);
             }
         }
     }
 };
 
-
-const createAsset = async (prisma: PrismaClient, bundleId: number) => {
+const createAsset = async (prisma: PrismaClient, idOfBundle: number) => {
     await prisma.assetDetails.create({
         data: {
-            bundleId: bundleId,
+            bundleId: idOfBundle,
             dateUpdated: new Date().toISOString(),
             description: faker.lorem.paragraph(1),
             title: faker.lorem.words(3)
@@ -37,20 +42,20 @@ const createAsset = async (prisma: PrismaClient, bundleId: number) => {
     });
 };
 
-const createAssetBundle = async (prisma: PrismaClient, portfolioId: number) => {
+const createAssetBundle = async (prisma: PrismaClient, idOfPortfolio: number) => {
     return await prisma.assetBundle.create({
         data: {
             dateUpdated: new Date().toISOString(),
-            portfolioId: portfolioId,
+            portfolioId: idOfPortfolio,
         }
     });
 };
 
-const createAssetPortfolio = async (prisma: PrismaClient, ownerId: number) => {
+const createAssetPortfolio = async (prisma: PrismaClient, idOfOwner: number) => {
     return await prisma.assetPortfolio.create({
         data: {
             dateUpdated: new Date().toISOString(),
-            ownerId: ownerId,
+            ownerId: idOfOwner,
         }
     });
 };

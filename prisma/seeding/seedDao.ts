@@ -7,24 +7,22 @@ import * as random from "../../src/utils/random";
  * Seeds TEST database with a set of test research DAOs.
  * @param prisma - A prisma client bound to a dB
  */
-export default async (prisma: PrismaClient, countToCreate: number = 100) => {
-    for (let i = 0; i < countToCreate; i++) {
-		// Simulate DAO creator. In reality this will be a proposer as 
-		// DAO creation will pass through a meta governance process.
-        const creator = await prisma.user.findUnique({
-            where: {
-                id: i + 1
-            }
-        });
+export default async (prisma: PrismaClient) => {
+    // Create N DAOs with a different ceator per DAO.
+	for (let i = 1; i < 101; i++) {
+		// Set DAO creator ID.
+		const idOfCreator = i;
+		console.log(`ID of DAO creator: ${idOfCreator}`);
 
-        const dao = await createDao(prisma, creator!.id);
-		for (let j = 0; i < 10; j++) {
-			const member = await prisma.user.findUnique({
-				where: {
-					id: j + 1
-				}
-			});
-			createDaoMember(prisma, member!.id, dao.id)
+		// Set DAO.
+		const { id: idOfDao } = await createDao(prisma, idOfCreator);
+		console.log(`ID of DAO: ${idOfDao}`);
+
+		// Set DAO membership.
+		for (let j = 0; j < 10; j++) {
+			const idOfMember = random.getRandomInteger(1, 100);
+			console.log(`ID of DAO member: ${idOfMember}`);
+			createDaoMember(prisma, idOfDao, idOfMember)
 		}			
     }
 };
@@ -38,12 +36,12 @@ const createDao = async (prisma: PrismaClient, creatorId: number) => {
     });
 };
 
-const createDaoMember = async (prisma: PrismaClient, creatorId: number, daoId: number) => {
+const createDaoMember = async (prisma: PrismaClient, daoId: number, memberId: number) => {
     return await prisma.daoMember.create({
         data: {
             dateUpdated: new Date().toISOString(),
             daoId: daoId,
-			memberId: 
+			memberId: memberId,
         }
     });
 };

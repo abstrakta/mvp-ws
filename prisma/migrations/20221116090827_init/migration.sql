@@ -2,6 +2,9 @@
 CREATE TYPE "DaoMemberRole" AS ENUM ('ADJUDICATOR', 'MEDIATOR', 'ORDINARY');
 
 -- CreateEnum
+CREATE TYPE "DaoStatus" AS ENUM ('PROPOSED', 'ACTIVE', 'SUSPENDED', 'ARCHIVED');
+
+-- CreateEnum
 CREATE TYPE "PublicationStatus" AS ENUM ('DRAFT', 'DRAFT_REVIEW', 'LIVE_PUBLISHED', 'LIVE_ARCHIVED');
 
 -- CreateTable
@@ -44,6 +47,7 @@ CREATE TABLE "Dao" (
     "dateCreated" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "dateUpdated" TIMESTAMP(3) NOT NULL,
     "name" TEXT NOT NULL,
+    "status" "DaoStatus" NOT NULL DEFAULT 'ACTIVE',
 
     CONSTRAINT "Dao_pkey" PRIMARY KEY ("id")
 );
