@@ -1,7 +1,5 @@
 export PATH_TO_HERE="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-
-
 # Drop db.
 sudo -i -u postgres dropdb abstrakta_db
 
