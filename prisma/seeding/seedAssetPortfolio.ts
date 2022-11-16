@@ -1,6 +1,5 @@
 import { faker } from '@faker-js/faker';
 import { PrismaClient } from '@prisma/client';
-import * as random from "../../src/utils/random";
 
 
 /**
@@ -34,9 +33,9 @@ export default async (prisma: PrismaClient) => {
 const createAsset = async (prisma: PrismaClient, idOfBundle: number) => {
     await prisma.assetDetails.create({
         data: {
-            bundleId: idOfBundle,
             dateUpdated: new Date().toISOString(),
             description: faker.lorem.paragraph(1),
+            idOfBundle: idOfBundle,
             title: faker.lorem.words(3)
         }
     });
@@ -46,7 +45,7 @@ const createAssetBundle = async (prisma: PrismaClient, idOfPortfolio: number) =>
     return await prisma.assetBundle.create({
         data: {
             dateUpdated: new Date().toISOString(),
-            portfolioId: idOfPortfolio,
+            idOfPortfolio: idOfPortfolio,
         }
     });
 };
@@ -55,7 +54,7 @@ const createAssetPortfolio = async (prisma: PrismaClient, idOfOwner: number) => 
     return await prisma.assetPortfolio.create({
         data: {
             dateUpdated: new Date().toISOString(),
-            ownerId: idOfOwner,
+            idOfOwner: idOfOwner,
         }
     });
 };

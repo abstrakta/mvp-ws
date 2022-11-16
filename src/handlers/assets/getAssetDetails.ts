@@ -12,7 +12,7 @@ export default async (req: Request, res: Response) => {
     const prisma = new PrismaClient();
     const entity = await prisma.assetDetails.findFirst({
         where: {
-            id: parseInt(req.params.assetId)
+            id: parseInt(req.params.idOfAsset)
         }
     });
 

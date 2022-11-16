@@ -36,12 +36,12 @@ const createDao = async (prisma: PrismaClient, creatorId: number) => {
     });
 };
 
-const createDaoMember = async (prisma: PrismaClient, daoId: number, memberId: number) => {
+const createDaoMember = async (prisma: PrismaClient, idOfDao: number, idOfMember: number) => {
     return await prisma.daoMember.create({
         data: {
             dateUpdated: new Date().toISOString(),
-            daoId: daoId,
-			memberId: memberId,
+            idOfDao: idOfDao,
+			idOfMember: idOfMember,
         }
     });
 };

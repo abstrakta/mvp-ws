@@ -9,20 +9,20 @@ datasource db {
 
 model AssetBundle {
   id                Int               @id @default(autoincrement())
+  idOfPortfolio     Int?
   dateCreated       DateTime          @default(now())
   dateUpdated       DateTime          @updatedAt
   assets            AssetDetails[]
-  portfolio         AssetPortfolio?   @relation(fields: [portfolioId], references: [id])
-  portfolioId       Int?
+  portfolio         AssetPortfolio?   @relation(fields: [idOfPortfolio], references: [id])
   publicationStatus PublicationStatus @default(DRAFT)
 }
 
 model AssetDetails {
   id                Int               @id @default(autoincrement())
+  idOfBundle          Int?
   dateCreated       DateTime          @default(now())
   dateUpdated       DateTime          @updatedAt
-  bundle            AssetBundle?      @relation(fields: [bundleId], references: [id])
-  bundleId          Int?
+  bundle            AssetBundle?      @relation(fields: [idOfBundle], references: [id])
   description       String
   title             String
   publicationStatus PublicationStatus @default(DRAFT)
@@ -30,11 +30,11 @@ model AssetDetails {
 
 model AssetPortfolio {
   id          Int           @id @default(autoincrement())
+  idOfOwner     Int
   dateCreated DateTime      @default(now())
   dateUpdated DateTime      @updatedAt
   bundles     AssetBundle[]
-  owner       User          @relation(fields: [ownerId], references: [id])
-  ownerId     Int
+  owner       User          @relation(fields: [idOfOwner], references: [id])
 }
 
 model Dao {
@@ -48,12 +48,12 @@ model Dao {
 
 model DaoMember {
   id          Int           @id @default(autoincrement())
+  idOfDao     Int
+  idOfMember  Int
   dateCreated DateTime      @default(now())
   dateUpdated DateTime      @updatedAt
-  dao         Dao           @relation(fields: [daoId], references: [id])
-  daoId       Int
-  member      User          @relation(fields: [memberId], references: [id])
-  memberId    Int
+  dao         Dao           @relation(fields: [idOfDao], references: [id])
+  member      User          @relation(fields: [idOfMember], references: [id])
   memberRole  DaoMemberRole @default(ORDINARY)
 }
 

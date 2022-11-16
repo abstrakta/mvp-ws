@@ -12,7 +12,7 @@ export default async (req: Request, res: Response) => {
     const prisma = new PrismaClient();
     const entity = await prisma.assetBundle.findFirst({
         where: {
-            portfolioId: parseInt(req.params.portfolioId)
+            idOfPortfolio: parseInt(req.params.idOfPortfolio)
         },
         include: {
             assets: true

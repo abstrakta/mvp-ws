@@ -12,7 +12,7 @@ export default async (req: Request, res: Response) => {
     const prisma = new PrismaClient();
     const entity = await prisma.assetPortfolio.findFirst({
         where: {
-            ownerId: parseInt(req.params.ownerId)
+            idOfOwner: parseInt(req.params.idOfOwner)
         },
         include: {
             bundles: {

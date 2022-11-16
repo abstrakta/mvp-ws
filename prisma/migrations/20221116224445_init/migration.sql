@@ -10,9 +10,9 @@ CREATE TYPE "PublicationStatus" AS ENUM ('DRAFT', 'DRAFT_REVIEW', 'LIVE_PUBLISHE
 -- CreateTable
 CREATE TABLE "AssetBundle" (
     "id" SERIAL NOT NULL,
+    "idOfPortfolio" INTEGER,
     "dateCreated" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "dateUpdated" TIMESTAMP(3) NOT NULL,
-    "portfolioId" INTEGER,
     "publicationStatus" "PublicationStatus" NOT NULL DEFAULT 'DRAFT',
 
     CONSTRAINT "AssetBundle_pkey" PRIMARY KEY ("id")
@@ -21,9 +21,9 @@ CREATE TABLE "AssetBundle" (
 -- CreateTable
 CREATE TABLE "AssetDetails" (
     "id" SERIAL NOT NULL,
+    "idOfBundle" INTEGER,
     "dateCreated" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "dateUpdated" TIMESTAMP(3) NOT NULL,
-    "bundleId" INTEGER,
     "description" TEXT NOT NULL,
     "title" TEXT NOT NULL,
     "publicationStatus" "PublicationStatus" NOT NULL DEFAULT 'DRAFT',
@@ -34,9 +34,9 @@ CREATE TABLE "AssetDetails" (
 -- CreateTable
 CREATE TABLE "AssetPortfolio" (
     "id" SERIAL NOT NULL,
+    "idOfOwner" INTEGER NOT NULL,
     "dateCreated" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "dateUpdated" TIMESTAMP(3) NOT NULL,
-    "ownerId" INTEGER NOT NULL,
 
     CONSTRAINT "AssetPortfolio_pkey" PRIMARY KEY ("id")
 );
@@ -55,10 +55,10 @@ CREATE TABLE "Dao" (
 -- CreateTable
 CREATE TABLE "DaoMember" (
     "id" SERIAL NOT NULL,
+    "idOfDao" INTEGER NOT NULL,
+    "idOfMember" INTEGER NOT NULL,
     "dateCreated" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "dateUpdated" TIMESTAMP(3) NOT NULL,
-    "daoId" INTEGER NOT NULL,
-    "memberId" INTEGER NOT NULL,
     "memberRole" "DaoMemberRole" NOT NULL DEFAULT 'ORDINARY',
 
     CONSTRAINT "DaoMember_pkey" PRIMARY KEY ("id")
@@ -79,16 +79,16 @@ CREATE TABLE "User" (
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
 -- AddForeignKey
-ALTER TABLE "AssetBundle" ADD CONSTRAINT "AssetBundle_portfolioId_fkey" FOREIGN KEY ("portfolioId") REFERENCES "AssetPortfolio"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "AssetBundle" ADD CONSTRAINT "AssetBundle_idOfPortfolio_fkey" FOREIGN KEY ("idOfPortfolio") REFERENCES "AssetPortfolio"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "AssetDetails" ADD CONSTRAINT "AssetDetails_bundleId_fkey" FOREIGN KEY ("bundleId") REFERENCES "AssetBundle"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "AssetDetails" ADD CONSTRAINT "AssetDetails_idOfBundle_fkey" FOREIGN KEY ("idOfBundle") REFERENCES "AssetBundle"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "AssetPortfolio" ADD CONSTRAINT "AssetPortfolio_ownerId_fkey" FOREIGN KEY ("ownerId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "AssetPortfolio" ADD CONSTRAINT "AssetPortfolio_idOfOwner_fkey" FOREIGN KEY ("idOfOwner") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "DaoMember" ADD CONSTRAINT "DaoMember_daoId_fkey" FOREIGN KEY ("daoId") REFERENCES "Dao"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "DaoMember" ADD CONSTRAINT "DaoMember_idOfDao_fkey" FOREIGN KEY ("idOfDao") REFERENCES "Dao"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "DaoMember" ADD CONSTRAINT "DaoMember_memberId_fkey" FOREIGN KEY ("memberId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "DaoMember" ADD CONSTRAINT "DaoMember_idOfMember_fkey" FOREIGN KEY ("idOfMember") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
