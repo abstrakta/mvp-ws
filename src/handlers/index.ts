@@ -1,5 +1,9 @@
-import getHeartbeat from "./misc/getHeartbeat";
+import * as assets      from "./assets";
+import * as misc        from "./misc";
+import * as users       from "./users";
 
 export {
-    getHeartbeat,
+    assets,
+    misc,
+    users,
 }

@@ -1,27 +1,88 @@
 generator client {
-    provider = "prisma-client-js"
+  provider = "prisma-client-js"
 }
-  
+
 datasource db {
-    provider = "sqlite"
-    url = "file:../data/abstrakta-dev.db"
+  provider = "postgresql"
+  url      = "postgresql://abstrakta_dbuser_admin:abstrakta@Silence93!@localhost:5432/abstrakta_db"
+}
+
+model AssetBundle {
+  id                Int               @id @default(autoincrement())
+  dateCreated       DateTime          @default(now())
+  dateUpdated       DateTime          @updatedAt
+  assets            AssetDetails[]
+  portfolio         AssetPortfolio?   @relation(fields: [portfolioId], references: [id])
+  portfolioId       Int?
+  publicationStatus PublicationStatus @default(DRAFT)
+}
+
+model AssetDetails {
+  id                Int               @id @default(autoincrement())
+  dateCreated       DateTime          @default(now())
+  dateUpdated       DateTime          @updatedAt
+  bundle            AssetBundle?      @relation(fields: [bundleId], references: [id])
+  bundleId          Int?
+  description       String
+  title             String
+  publicationStatus PublicationStatus @default(DRAFT)
+}
+
+model AssetPortfolio {
+  id          Int           @id @default(autoincrement())
+  dateCreated DateTime      @default(now())
+  dateUpdated DateTime      @updatedAt
+  bundles     AssetBundle[]
+  owner       User          @relation(fields: [ownerId], references: [id])
+  ownerId     Int
+}
+
+model Dao {
+  id          Int         @id @default(autoincrement())
+  dateCreated DateTime    @default(now())
+  dateUpdated DateTime    @updatedAt
+  members     DaoMember[]
+  name        String
+  status      DaoStatus   @default(ACTIVE)
+}
+
+model DaoMember {
+  id          Int           @id @default(autoincrement())
+  dateCreated DateTime      @default(now())
+  dateUpdated DateTime      @updatedAt
+  dao         Dao           @relation(fields: [daoId], references: [id])
+  daoId       Int
+  member      User          @relation(fields: [memberId], references: [id])
+  memberId    Int
+  memberRole  DaoMemberRole @default(ORDINARY)
+}
+
+enum DaoMemberRole {
+  ADJUDICATOR
+  MEDIATOR
+  ORDINARY
+}
+
+enum DaoStatus {
+  PROPOSED
+  ACTIVE
+  SUSPENDED
+  ARCHIVED
+}
+
+enum PublicationStatus {
+  DRAFT
+  DRAFT_REVIEW
+  LIVE_PUBLISHED
+  LIVE_ARCHIVED
 }
 
 model User {
-    id    Int @id @default (autoincrement())
-    email String @unique
-    name  String ?
-    posts Post[]
-}
-
-model Post {
-    id        Int @id @default (autoincrement())
-    createdAt DateTime @default (now())
-    updatedAt DateTime @updatedAt
-    title     String
-    content   String ?
-    published Boolean @default (false)
-    viewCount Int @default (0)
-    author    User ?    @relation(fields: [authorId], references: [id])
-    authorId  Int ?
+  id          Int              @id @default(autoincrement())
+  dateCreated DateTime         @default(now())
+  dateUpdated DateTime         @updatedAt
+  email       String           @unique
+  name        String?
+  portfolios  AssetPortfolio[]
+  DaoMember   DaoMember[]
 }

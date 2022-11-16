@@ -104,7 +104,7 @@ export const logTODO = async (msg: string) => {
  * @param {msg} Message to be logged.
  * @param {level} Level of importance.
  */
-const get_formatted_message = (msg: string, level: string) => {
+const get_formatted_message = (msg: string, level: string): string => {
   return [
         new Date().toISOString(),
         "API",

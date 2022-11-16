@@ -1,6 +1,8 @@
 import { Request, Response } from 'express';
 import * as constants from "../../utils/constants";
 
+import { PrismaClient } from '@prisma/client';
+
 
 /**
  * Emits heartbeat message to client.
@@ -9,5 +11,12 @@ import * as constants from "../../utils/constants";
  * @return {Object} URL to verifier's iframe & tx reference.
  */
 export default async (req: Request, res: Response) => {
-    res.send(`ABSTRAKTA web service: TODO return user info`);
+    const prisma = new PrismaClient();
+    const entity = await prisma.user.findFirst({
+        where: {
+            id: parseInt(req.params.userId)
+        }
+    })
+
+    res.json(entity);
 }

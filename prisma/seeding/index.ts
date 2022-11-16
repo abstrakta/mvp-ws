@@ -1,46 +1,25 @@
-import { PrismaClient } from '@prisma/client'
-const prisma = new PrismaClient()
-async function main() {
-  const alice = await prisma.user.upsert({
-    where: { email: 'alice@prisma.io' },
-    update: {},
-    create: {
-      email: 'alice@prisma.io',
-      name: 'Alice',
-      posts: {
-        create: {
-          title: 'Check out Prisma with Next.js',
-          content: 'https://www.prisma.io/nextjs',
-          published: true,
-        },
-      },
-    },
-  })
-  const bob = await prisma.user.upsert({
-    where: { email: 'bob@prisma.io' },
-    update: {},
-    create: {
-      email: 'bob@prisma.io',
-      name: 'Bob',
-      posts: {
-        create: [
-          {
-            title: 'Follow Prisma on Twitter',
-            content: 'https://twitter.com/prisma',
-            published: true,
-          },
-          {
-            title: 'Follow Nexus on Twitter',
-            content: 'https://twitter.com/nexusgql',
-            published: true,
-          },
-        ],
-      },
-    },
-  })
-  console.log({ alice, bob })
+import { PrismaClient } from '@prisma/client';
+import seedAssetPortfolio from "./seedAssetPortfolio";
+import seedDao from "./seedDao";
+import seedUser from "./seedUser";
+
+
+async function main(prisma: PrismaClient) {
+  console.log("Seeding abstrakta TEST dB");
+
+  console.log("... seeding 100 users");
+  await seedUser(prisma, 100);
+
+  console.log("... seeding 100 daos");
+  await seedDao(prisma, 100);
+
+  console.log("... seeding 100 asset portfolios");
+  await seedAssetPortfolio(prisma, 100);
+
 }
-main()
+
+const prisma = new PrismaClient();
+main(prisma)
   .then(async () => {
     await prisma.$disconnect()
   })
@@ -48,4 +27,4 @@ main()
     console.error(e)
     await prisma.$disconnect()
     process.exit(1)
-  })
+  });

@@ -1,5 +1,4 @@
 import { Request, Response } from 'express';
-import * as constants from "../../utils/constants";
 
 
 /**
@@ -8,6 +7,9 @@ import * as constants from "../../utils/constants";
  * @param {string} res - Outgoing HTTP response.
  * @return {Object} URL to verifier's iframe & tx reference.
  */
-export default async (req: Request, res: Response) => {
-    res.send(`ABSTRAKTA web service v${constants.VERSION} is operational @ ${new Date().toISOString()}`);
+export default async (req: Request, res: Response, next: any) => {
+	console.log('LOGGED');
+
+	next();
 }
+
