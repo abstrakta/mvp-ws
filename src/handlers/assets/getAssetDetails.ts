@@ -1,6 +1,4 @@
 import { Request, Response } from 'express';
-import * as constants from "../../utils/constants";
-
 import { PrismaClient } from '@prisma/client';
 
 

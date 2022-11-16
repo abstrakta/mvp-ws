@@ -1,9 +1,3 @@
-import getAssetBundle from "./getAssetBundle";
-import getAssetDetails from "./getAssetDetails";
-import getAssetPortfolio from "./getAssetPortfolio";
-
-export {
-	getAssetBundle,
-	getAssetDetails,
-	getAssetPortfolio,
-}
+export { default as getAssetBundle } from "./getAssetBundle";
+export { default as getAssetDetails } from "./getAssetDetails";
+export { default as getAssetPortfolio } from "./getAssetPortfolio";

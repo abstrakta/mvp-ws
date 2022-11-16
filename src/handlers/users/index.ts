@@ -1,5 +1,1 @@
-import getUser from "./getUser";
-
-export {
-	getUser,
-}
+export { default as getUser } from "./getUser";

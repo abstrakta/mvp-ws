@@ -1,6 +1,7 @@
 import { Application } from 'express';
 import * as handlers from '../handlers';
 
+
 /**
  * Binds application routes to request handlers.
  * @param app - Express handler.

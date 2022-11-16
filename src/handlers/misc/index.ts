@@ -1,5 +1,1 @@
-import getHeartbeat from "./getHeartbeat";
-
-export {
-	getHeartbeat,
-}
+export { default as getHeartbeat } from "./getHeartbeat";

@@ -1,11 +1,4 @@
-import * as assets      from "./assets";
-import * as daos        from "./daos";
-import * as misc        from "./misc";
-import * as users       from "./users";
-
-export {
-    assets,
-    daos,
-    misc,
-    users,
-}
+export * as assets from "./assets";
+export * as daos from "./daos";
+export * as misc from "./misc";
+export * as users from "./users";
