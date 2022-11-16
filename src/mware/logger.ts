@@ -1,15 +1,15 @@
 import { Request, Response } from 'express';
+import * as logger from "../utils/logging";
 
 
 /**
- * Emits heartbeat message to client.
- * @param {string} req - Incoming HTTP request.
- * @param {string} res - Outgoing HTTP response.
- * @return {Object} URL to verifier's iframe & tx reference.
+ * Middleware: emits to stdout a logging message.
+ * @param req - Incoming HTTP request.
+ * @param res - Outgoing HTTP response.
+ * @param next - Middleware pipeline incrementor.
  */
 export default async (req: Request, res: Response, next: any) => {
-	console.log('LOGGED');
+	logger.logAPI("Hello Dolly")
 
 	next();
 }
-

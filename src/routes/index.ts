@@ -17,4 +17,7 @@ export default async (app: Application) => {
     app.get('/assets/bundle/:portfolioId', handlers.assets.getAssetBundle);
     app.get('/assets/details/:assetId', handlers.assets.getAssetDetails);
     app.get('/assets/portfolio/:ownerId', handlers.assets.getAssetPortfolio);
+
+    // Daos.
+    app.get('/daos/details/:idOfDao', handlers.daos.getDao);
 }

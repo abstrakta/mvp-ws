@@ -1,15 +1,17 @@
 import express from "express";
+import { Express } from "express";
 import setMiddleware      from "./mware";
 import setRoutes          from "./routes";
+import * as constants from "./utils/constants";
+import * as logger from "./utils/logging";
 
 
-const app = express();
-const PORT = 3000;
-
+// Instantiate & configure application.
+const app: Express = express();
 setMiddleware(app);
 setRoutes(app);
 
-
-app.listen(PORT, () => {
-  console.log(`Example app listening on port ${PORT}`)
+// Start application.
+app.listen(constants.APP_PORT, () => {
+  logger.logAPI(`Listening on port ${constants.APP_PORT}`);
 });
