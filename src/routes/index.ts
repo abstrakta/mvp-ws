@@ -12,13 +12,14 @@ export default async (app: Application) => {
     app.get('/heartbeat', handlers.misc.getHeartbeat);
 
     // Users.
-    app.get('/users/:idOfUser', handlers.users.getUser);
+    app.get('/users/:idOfEntity', handlers.users.getUserDetails);
+    app.get('/users/:idOfEntity/portfolio', handlers.users.getUserAssetPortfolio);
 
     // Research assets.
-    app.get('/assets/bundle/:idOfPortfolio', handlers.assets.getAssetBundle);
-    app.get('/assets/details/:idOfAsset', handlers.assets.getAssetDetails);
-    app.get('/assets/portfolio/:idOfOwner', handlers.assets.getAssetPortfolio);
+    app.get('/assets/:idOfEntity', handlers.assets.getAssetDetails);
+    app.get('/asset-bundles/:idOfEntity', handlers.assets.getAssetBundle);
+    app.get('/asset-portfolios/:idOfEntity', handlers.assets.getAssetPortfolio);
 
     // Daos.
-    app.get('/daos/details/:idOfDao', handlers.daos.getDao);
+    app.get('/daos/:idOfEntity', handlers.daos.getDaoDetails);
 }

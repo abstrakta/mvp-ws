@@ -1,1 +1,1 @@
-export { default as getDao } from "./getDao";
+export { default as getDaoDetails } from "./getDaoDetails";

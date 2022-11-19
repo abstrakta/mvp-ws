@@ -1,3 +1,8 @@
+// Set environment.
+import * as dotenv from "dotenv";
+dotenv.config();
+
+
 import express from "express";
 import { Express } from "express";
 import setMiddleware      from "./mware";

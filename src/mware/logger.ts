@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import * as logger from "../utils/logging";
 
 
@@ -8,7 +8,7 @@ import * as logger from "../utils/logging";
  * @param res - Outgoing HTTP response.
  * @param next - Middleware pipeline incrementor.
  */
-export default async (req: Request, res: Response, next: any) => {
+export default async (req: Request, res: Response, next: NextFunction) => {
 	if (Object.keys(req.params).length > 0) {
 		logger.logAPI(`HTTP request: ${req.path} :: ${Object.keys(req.params)}`);
 	} else {

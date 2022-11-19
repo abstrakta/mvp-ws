@@ -10,7 +10,7 @@ import * as dbe from '../../dbe';
  */
 export default async (req: Request, res: Response) => {
     const idOfEntity: number = parseInt(req.params.idOfEntity);
-    const entity  = await dbe.assets.getAssetBundle(idOfEntity);
+    const entity  = await dbe.daos.getDaoDetail(idOfEntity);
 
     res.json(entity);
 }

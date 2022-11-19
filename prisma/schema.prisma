@@ -19,7 +19,7 @@ model AssetBundle {
 
 model AssetDetails {
   id                Int               @id @default(autoincrement())
-  idOfBundle          Int?
+  idOfBundle        Int?
   dateCreated       DateTime          @default(now())
   dateUpdated       DateTime          @updatedAt
   bundle            AssetBundle?      @relation(fields: [idOfBundle], references: [id])
@@ -30,7 +30,7 @@ model AssetDetails {
 
 model AssetPortfolio {
   id          Int           @id @default(autoincrement())
-  idOfOwner     Int
+  idOfOwner   Int
   dateCreated DateTime      @default(now())
   dateUpdated DateTime      @updatedAt
   bundles     AssetBundle[]
@@ -78,11 +78,11 @@ enum PublicationStatus {
 }
 
 model User {
-  id          Int              @id @default(autoincrement())
-  dateCreated DateTime         @default(now())
-  dateUpdated DateTime         @updatedAt
-  email       String           @unique
-  name        String?
-  portfolios  AssetPortfolio[]
-  DaoMember   DaoMember[]
+  id             Int              @id @default(autoincrement())
+  dateCreated    DateTime         @default(now())
+  dateUpdated    DateTime         @updatedAt
+  email          String           @unique
+  name           String?
+  portfolios     AssetPortfolio[]
+  daoMemberShips DaoMember[]
 }

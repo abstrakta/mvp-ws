@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { PrismaClient } from '@prisma/client';
+import * as dbe from '../../dbe';
 
 
 /**
@@ -9,12 +9,8 @@ import { PrismaClient } from '@prisma/client';
  * @return {Object} URL to verifier's iframe & tx reference.
  */
 export default async (req: Request, res: Response) => {
-    const prisma = new PrismaClient();
-    const entity = await prisma.assetDetails.findFirst({
-        where: {
-            id: parseInt(req.params.idOfAsset)
-        }
-    });
+    const idOfEntity: number = parseInt(req.params.idOfEntity);
+    const entity  = await dbe.assets.getAssetDetail(idOfEntity);
 
     res.json(entity);
 }

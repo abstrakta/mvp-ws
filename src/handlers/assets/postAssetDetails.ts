@@ -9,8 +9,6 @@ import * as dbe from '../../dbe';
  * @return {Object} URL to verifier's iframe & tx reference.
  */
 export default async (req: Request, res: Response) => {
-    const idOfEntity: number = parseInt(req.params.idOfEntity);
-    const entity  = await dbe.assets.getAssetBundle(idOfEntity);
-
-    res.json(entity);
+	console.log(123);
+	
 }
