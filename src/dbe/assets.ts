@@ -22,6 +22,20 @@ import { PublicationStatus } from '@prisma/client';
 };
 
 /**
+ * Deletes a domain entity: asset detail.
+ * @param idOfEntity - Domain entity identifier.
+ * @return {Object} Domain entity DTO.
+ */
+ export const deleteAssetDetail = async (idOfEntity: number) => {
+    const prisma = new PrismaClient();
+    await prisma.assetDetails.delete({
+        where: {
+            id: idOfEntity
+        },
+    });
+};
+
+/**
  * Returns a domain entity: asset bundle.
  * @param idOfPortfolio - Domain entity identifier.
  * @return {Object} Domain entity DTO.
