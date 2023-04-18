@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import * as dbe from '../../dbe';
+import { db } from '../../services';
 
 
 /**
@@ -10,7 +10,7 @@ import * as dbe from '../../dbe';
  */
 export default async (req: Request, res: Response) => {
     const idOfEntity = parseInt(req.params.idOfEntity);
-    const entity = await dbe.users.getUserDetail(idOfEntity);
+    const entity = await db.users.getUserDetail(idOfEntity);
 
     res.json(entity);
 }

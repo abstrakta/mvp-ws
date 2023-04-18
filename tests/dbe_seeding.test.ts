@@ -1,4 +1,5 @@
-import * as dbe from '../src/dbe';
+import { db as dbe } from '../src/services';
+
 
 test("DB engine -> assets -> getAssetBundle returns a seeded entity", async () => {
 	expect(await dbe.assets.getAssetBundle(1)).toBeTruthy();

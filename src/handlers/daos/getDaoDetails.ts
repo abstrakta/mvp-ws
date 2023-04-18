@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
-import * as dbe from '../../dbe';
-
+import { db } from '../../services';
 
 /**
  * Emits heartbeat message to client.
@@ -10,7 +9,7 @@ import * as dbe from '../../dbe';
  */
 export default async (req: Request, res: Response) => {
     const idOfEntity: number = parseInt(req.params.idOfEntity);
-    const entity  = await dbe.daos.getDaoDetail(idOfEntity);
+    const entity  = await db.daos.getDaoDetail(idOfEntity);
 
     res.json(entity);
 }

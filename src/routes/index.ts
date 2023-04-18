@@ -12,8 +12,10 @@ export default async (app: Application) => {
     app.get('/heartbeat', handlers.misc.getHeartbeat);
 
     // Users.
-    app.get('/users/:idOfEntity', handlers.users.getUserDetails);
-    app.get('/users/:idOfEntity/portfolio', handlers.users.getUserAssetPortfolio);
+    app.get('/users/:idOfUser', handlers.users.getUserDetails);
+    app.get('/users/:idOfUser/portfolio', handlers.users.getUserAssetPortfolio);
+
+    app.get('/users/:idOfUser/portfolio/:idOfAssetBundle', handlers.users.getUserAssetBundle);
 
     // Research assets.
     app.get('/assets/:idOfEntity', handlers.assets.getAssetDetails);

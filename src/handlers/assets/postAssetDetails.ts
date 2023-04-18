@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import * as dbe from '../../dbe';
+import { db } from '../../services';
 
 
 /**
@@ -10,5 +10,4 @@ import * as dbe from '../../dbe';
  */
 export default async (req: Request, res: Response) => {
 	console.log(123);
-	
 }

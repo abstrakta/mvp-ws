@@ -1,4 +1,5 @@
-import * as dbe from '../src/dbe';
+import { db as dbe } from '../src/services';
+
 
 test("DB engine -> assets -> createAssetDetail returns a new entity identifier", async () => {
 	// Create.
@@ -19,4 +20,3 @@ test("DB engine -> assets -> createAssetDetail returns a new entity identifier",
 	entity = await dbe.assets.getAssetDetail(idOfEntity)
 	expect(entity).toBeFalsy();
 });
-

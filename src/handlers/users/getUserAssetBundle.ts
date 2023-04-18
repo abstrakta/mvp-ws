@@ -9,8 +9,9 @@ import { db } from '../../services';
  * @return {Object} URL to verifier's iframe & tx reference.
  */
 export default async (req: Request, res: Response) => {
-    const idOfOwner = parseInt(req.params.idOfUser);
-    const entity = await db.assets.getAssetPortfolioByOwner(idOfOwner);
+    const idOfUser = parseInt(req.params.idOfUser);
+    const idOfAssetBundle = parseInt(req.params.idOfAssetBundle);
+    const entity = await db.assets.getAssetBundleByUser(idOfUser, idOfAssetBundle);
 
     res.json(entity);
 }

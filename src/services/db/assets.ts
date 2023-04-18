@@ -54,6 +54,26 @@ export const getAssetBundle = async (idOfBundle: number) => {
 };
 
 /**
+ * Returns a domain entity: asset bundle (matched by owner id).
+ * @param idOfPortfolio - Domain entity identifier.
+ * @return {Object} Domain entity DTO.
+ */
+export const getAssetBundleByUser = async (idOfOwner: number, idOfAssetBundle: number) => {
+    const prisma = new PrismaClient();
+
+    console.log(idOfOwner, idOfAssetBundle);
+
+    return await prisma.assetPortfolio.findFirst({
+        where: {
+            idOfOwner: idOfOwner
+        },
+        include: {
+            bundles: true
+        }
+    });
+};
+
+/**
  * Returns a domain entity: asset detail.
  * @param idOfAsset - Domain entity identifier.
  * @return {Object} Domain entity DTO.
